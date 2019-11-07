@@ -1147,6 +1147,10 @@ yang_read_pattern(struct lys_module *module, struct lys_restr *pattern, void **p
     char *orig_value;
     size_t len;
 
+
+    LOGVRB(">>>> YANG_READ_PATTERN \"%s\", module \"%s\"", value, module->name);
+
+
     // YDK:ygorelik: Change pattern for openconfig modules
     // by removing '^' in the beginning and '$' at the end of the pattern value
     len = strlen(value);
@@ -1158,6 +1162,8 @@ yang_read_pattern(struct lys_module *module, struct lys_restr *pattern, void **p
         value = value + 1;
         len = len - 2;
     }
+
+    LOGVRB(">>>> YANG_READ_PATTERN - AFTER-MODIF \"%s\", module \"%s\"", value, module->name);
 
     if (precomp && lyp_precompile_pattern(value, (pcre**)&precomp[0], (pcre_extra**)&precomp[1])) {
         free(value);
